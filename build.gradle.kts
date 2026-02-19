@@ -6,7 +6,6 @@ plugins {
     id("org.beryx.jlink") version "2.25.0"
 }
 
-group = "com.mcnz.test"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -26,8 +25,7 @@ tasks.withType<JavaCompile> {
 }
 
 application {
-    mainModule.set("com.mcnz.test.gradletest")
-    mainClass.set("com.mcnz.test.gradletest.HelloApplication")
+    mainClass.set("HelloApplication")
 }
 
 javafx {
@@ -38,6 +36,13 @@ javafx {
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+sourceSets {
+    main {
+        java.srcDir("src")
+        resources.srcDir("resources")
+    }
 }
 
 tasks.withType<Test> {
