@@ -19,7 +19,7 @@ public class Cell {
   @Override
   public String toString() {
     return String.format("Cell positioned at (%d, %d) with state %s\n",
-                          this.position.x, this.position.y, this.state);
+                          this.position.x(), this.position.y(), this.state);
   }
   @Override
   public boolean equals(Object obj) {
