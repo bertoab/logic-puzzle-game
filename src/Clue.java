@@ -1,5 +1,5 @@
 public class Clue {
-    // REVIEW NOTE: CS225 "complete class" checklist may also expect toString/equals/hashCode.
+    // TODO toString()/equals()
     private final int number;
     private final String text;
 

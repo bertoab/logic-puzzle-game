@@ -9,6 +9,8 @@ import java.util.List;
  * Keeps parsing responsibilities separate from UI and game logic.
  * Uses simple fail-fast RuntimeExceptions for malformed data.
  */
+
+// TODO toString()/equals()
 public class PuzzleLoader {
 
     public PuzzleDefinition loadDefinition(String path) {
