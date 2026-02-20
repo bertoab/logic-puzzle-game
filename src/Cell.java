@@ -3,6 +3,7 @@ public class Cell {
   private Position position;
   public Cell(Position position) {
     this.position = position;
+    this.state = CellState.Blank;
   }
   public CellState getState() {
     return this.state;
