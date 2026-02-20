@@ -1,5 +1,3 @@
-package com.mcnz.test.gradletest;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

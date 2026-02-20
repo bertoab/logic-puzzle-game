@@ -1,5 +1,3 @@
-package com.mcnz.test.gradletest;
-
 import javafx.application.Application;
 
 public class Launcher {
