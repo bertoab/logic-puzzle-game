@@ -1,1 +1,2 @@
-public record Position(int x, int y) { }
+// TODO toString()/equals()
+public record Position(int row, int col) { }
