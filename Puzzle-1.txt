@@ -1,0 +1,131 @@
+Horizontal Label: 
+employees
+- Eduardo
+- Jeremy
+- Kurt
+- Marc
+
+section
+- blue
+- pink
+- purple
+- red
+
+Vertical Label:
+riders
+- 50 riders
+- 75 riders
+- 100 riders	
+- 125 riders
+
+section
+- blue
+- pink
+- purple
+- red
+
+Clues:
+1. Marc served 125 riders.
+2. The person who works in the blue section served 50 more riders than Eduardo.
+3. Jeremy served 50 more riders than the worker who works in the purple section.
+4. The employee who works in the red section served 50 more riders than the employee who works in the pink section.
+
+Hints:
+
+Clue #1: 125 riders and Marc are explicitly true. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+0,0 - 3,3
+True
+
+Clue #3: If purple is less than Jeremy by some specific amount, then purple does not equal Jeremy. Mark the highlighted cell as FALSE. (+120 sec. penalty)
+0,1 - 1,2
+False
+
+Clue #3: If Jeremy is 2 steps greater than purple, then purple cannot equal 100 riders. Otherwise, Jeremy would have to be larger than the largest item in the set (125 riders). Mark the highlighted cell as FALSE. (+120 sec. penalty)
+1,0 - 2,2
+False
+
+Clue #3: If Jeremy is 2 steps greater than purple, then purple cannot equal 125 riders. Otherwise, Jeremy would have to be larger than the largest item in the set (125 riders). Mark the highlighted cell as FALSE. (+120 sec. penalty)
+1,0 - 2,3
+False
+
+Clue #3: If Jeremy is 2 steps greater than purple, then Jeremy cannot equal 50 riders. Otherwise, purple would have to be smaller than the smallest item in the set (50 riders). Mark the highlighted cell as FALSE. (+120 sec. penalty)
+0,0 - 1,0
+False
+
+Clue #3: If Jeremy is 2 steps greater than purple, then Jeremy cannot equal 75 riders. Otherwise, purple would have to be smaller than the smallest item in the set (50 riders). Mark the highlighted cell as FALSE. (+120 sec. penalty)
+0,0 - 1,1
+False
+
+Hint: 100 riders must equal Jeremy, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+0,0 - 1, 2
+True
+
+Clue #3: If Jeremy is 2 steps greater than purple, and Jeremy is equal to 100 riders, then purple must be 2 steps less than Jeremy, and purple must equal 50 riders. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+1,0 - 2,0
+True
+
+Clue #2: If Eduardo is less than blue by some specific amount, then Eduardo does not equal blue. Mark the highlighted cell as FALSE. (+120 sec. penalty)
+0,1 - 0,0
+False
+
+Clue #2: If blue is 2 steps greater than Eduardo, then blue cannot equal 75 riders. Otherwise, Eduardo would have to be smaller than the smallest item in the set (50 riders). Mark the highlighted cell as FALSE. (+120 sec. penalty)
+1,0 - 0,1
+False
+
+Clue #4: If red is 2 steps greater than pink, then pink cannot equal 100 riders. Otherwise, red would have to be larger than the largest item in the set (125 riders). Mark the highlighted cell as FALSE. (+120 sec. penalty)
+1,0 - 1,2
+False
+
+Clue #4: If red is 2 steps greater than pink, then pink cannot equal 125 riders. Otherwise, red would have to be larger than the largest item in the set (125 riders). Mark the highlighted cell as FALSE. (+120 sec. penalty)
+1,0 - 1,3
+False
+
+Hint: 75 riders must equal pink, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+1,0 - 1,1
+True
+
+Clue #4: If red is 2 steps greater than pink, and pink is equal to 75 riders, then red must be 2 steps greater than 75 riders, and red must equal 125 riders. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+1,0 - 3,3
+True
+
+Hint: 100 riders must equal blue, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+1,0 - 0,2
+True
+
+Clue #2: If blue is 2 steps greater than Eduardo, and blue is equal to 100 riders, then Eduardo must be 2 steps less than blue, and Eduardo must equal 50 riders. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+0,0 - 0,0
+True
+
+Hint: 75 riders must equal Kurt, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+0,0 - 2,1
+True
+
+Hint: 50 riders is equal to Eduardo, and 50 riders is equal to purple, therefore Eduardo is equal to purple. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+0,1 - 0,2
+True
+
+Hint: 75 riders is equal to Kurt, and 75 riders is equal to pink, therefore Kurt is equal to pink. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+0,1 - 2,1
+True
+
+Hint: 100 riders is equal to Jeremy, and 100 riders is equal to blue, therefore Jeremy is equal to blue. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+0,1 - 1,0
+True
+
+Hint: Red must equal Marc, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE. (+120 sec. penalty)
+0,1 - 3,3
+True
+
+Answer Key:
+0,0 - 3,3
+0,0 - 1,2
+1,0 - 2,0
+1,0 - 1,1
+1,0 - 3,3
+1,0 - 0,2
+0,0 - 0,0
+0,0 - 2,1
+0,1 - 0,2
+0,1 - 2,1
+0,1 - 1,0
+0,1 - 3,3
