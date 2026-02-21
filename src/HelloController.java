@@ -1,12 +1,13 @@
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
 public class HelloController {
-    @FXML
-    private Label welcomeText;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private TextArea hintArea;
+
+    @FXML
+    private void onHintClicked() {
+        hintArea.setText("Hint: blah blah blah");
     }
 }
