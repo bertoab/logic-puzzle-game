@@ -10,4 +10,9 @@ public class HelloController {
     private void onHintClicked() {
         hintArea.setText("Hint: blah blah blah");
     }
+
+    @FXML
+    private void onClearErrorsClicked() {
+       // TODO actually implement this method
+    }
 }
