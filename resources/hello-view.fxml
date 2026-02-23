@@ -86,7 +86,7 @@
                                 <RowConstraints percentHeight="50" />
                             </rowConstraints>
 
-                            <GridPane gridLinesVisible="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <GridPane fx:id="grid00" gridLinesVisible="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                 <columnConstraints>
                                     <ColumnConstraints percentWidth="25" />
                                     <ColumnConstraints percentWidth="25" />
@@ -101,7 +101,7 @@
                                 </rowConstraints>
                             </GridPane>
 
-                            <GridPane gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <GridPane fx:id="grid01" gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                 <columnConstraints>
                                     <ColumnConstraints percentWidth="25" />
                                     <ColumnConstraints percentWidth="25" />
@@ -116,7 +116,7 @@
                                 </rowConstraints>
                             </GridPane>
 
-                            <GridPane gridLinesVisible="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <GridPane fx:id="grid10" gridLinesVisible="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
                                 <columnConstraints>
                                     <ColumnConstraints percentWidth="25" />
                                     <ColumnConstraints percentWidth="25" />
@@ -154,7 +154,7 @@
                             </rowConstraints>
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onHintClicked" text="Hint" GridPane.halignment="CENTER" />
-                                <Button mnemonicParsing="false" text="Clear Errors" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                                <Button mnemonicParsing="false" onAction="#onClearErrorsClicked" text="Clear Errors" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                                 <Button mnemonicParsing="false" text="Start Over" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
                             </children>
                         </GridPane>
