@@ -1,37 +1,62 @@
-// Cesar Pimentel
+import java.util.List;
 
 public class PuzzleGame {
-    // TO-DO, implement PuzzleDefinition, Board & PuzzleValidator objects once their classes exist.
 
-    // Board board;
-    // PuzzleDefinition definition;
-    // PuzzleValidator validator;
-    int errorsAmount;
+    private final PuzzleDefinition puzzleDefinition;
+    private final Board board;
+    //private final PuzzleValidator puzzleValidator;
+    private int errorCount;
+    private int nextHintIndex;
 
-    /*
-    PuzzleGame(PuzzleDefinition definition,Board board, PuzzleValidator validator) {
-
-    }
-    */
-
-    public int[][] getNextHint() {
-        // Placeholder for now, this holds no meaning yet.
-        return new int[2][2];
+    //No validator yet.
+    public PuzzleGame(PuzzleDefinition puzzleDefinition, Board board) {
+        this.puzzleDefinition = puzzleDefinition;
+        this.board = board;
+        //this.puzzleValidator = puzzleValidator;
+        this.errorCount = 0;
+        this.nextHintIndex = 0;
     }
 
-    // Will clear all errors present and return how many.
-    public int clearError() {
-        return errorsAmount;
+    // Returns the next hint's cell location, or null if no hints remain
+    public CellLocation getNextHint() {
+        List<Hint> hints = puzzleDefinition.getHints();
+        if (nextHintIndex >= hints.size()) return null;
+        return hints.get(nextHintIndex++).getLocation();
+    }
+
+    public int clearErrors() {
+        int cleared = this.errorCount;
+        this.errorCount = 0;
+        return cleared;
+    }
+
+    public int getErrorCount() {
+        return this.errorCount;
+    }
+
+    public PuzzleDefinition getPuzzleDefinition() {
+        return puzzleDefinition;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return String.format("PuzzleGame { categories: %d, errors: %d, hintsUsed: %d/%d }",
+                puzzleDefinition.getCategoryCount(),
+                errorCount,
+                nextHintIndex,
+                puzzleDefinition.getHints().size()
+        );
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (!(obj instanceof PuzzleGame other)) return false;
+        return this.board.equals(other.board)
+                && this.puzzleDefinition.equals(other.puzzleDefinition)
+                && this.errorCount == other.errorCount;
     }
-
 }
