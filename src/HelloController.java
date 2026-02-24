@@ -19,8 +19,8 @@ public class HelloController {
 
     @FXML
     public void initialize() {
-        // TODO: replace with PuzzleLoader once file loading is ready
-        PuzzleDefinition definition = buildHardcodedDefinition();
+        PuzzleLoader loader = new PuzzleLoader();
+        PuzzleDefinition definition = loader.loadDefinition("Puzzle-1.txt");
         Board board = new Board(definition.getCategoryCount());
         puzzleGame = new PuzzleGame(definition, board);
 
@@ -112,104 +112,5 @@ public class HelloController {
             case False -> Color.RED;
             case Blank -> Color.BLACK;
         };
-    }
-
-    // Temporary hardcoded to match what's already shown
-    private PuzzleDefinition buildHardcodedDefinition() {
-        List<Category> categories = List.of(
-                new Category("employees", List.of("Eduardo", "Jeremy", "Kurt", "Marc")),
-                new Category("riders",    List.of("50", "75", "100", "125")),
-                new Category("section",   List.of("blue", "pink", "purple", "red"))
-        );
-
-        List<Clue> clues = List.of(
-                new Clue(1, "Marc served 125 riders."),
-                new Clue(2, "The person who works in the blue section served 50 more riders than Eduardo."),
-                new Clue(3, "Jeremy served 50 more riders than the worker who works in the purple section."),
-                new Clue(4, "The employee in the red section served 50 more riders than the one in the pink section.")
-        );
-
-        List<Hint> hints = List.of(
-
-                new Hint("Clue #1: 125 riders and Marc are explicitly true. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(0, 0), new Position(3, 3)), CellState.True),
-
-                new Hint("Clue #3: If purple is less than Jeremy by some specific amount, then purple does not equal Jeremy. Mark the highlighted cell as FALSE.",
-                        new CellLocation(new Position(0, 1), new Position(1, 2)), CellState.False),
-
-                new Hint("Clue #3: If Jeremy is 2 steps greater than purple, then purple cannot equal 100 riders. Otherwise, Jeremy would have to be larger than the largest item in the set (125 riders). Mark the highlighted cell as FALSE.",
-                        new CellLocation(new Position(1, 0), new Position(2, 2)), CellState.False),
-
-                new Hint("Clue #3: If Jeremy is 2 steps greater than purple, then purple cannot equal 125 riders. Otherwise, Jeremy would have to be larger than the largest item in the set (125 riders). Mark the highlighted cell as FALSE.",
-                        new CellLocation(new Position(1, 0), new Position(2, 3)), CellState.False),
-
-                new Hint("Clue #3: If Jeremy is 2 steps greater than purple, then Jeremy cannot equal 50 riders. Otherwise, purple would have to be smaller than the smallest item in the set (50 riders). Mark the highlighted cell as FALSE.",
-                        new CellLocation(new Position(0, 0), new Position(1, 0)), CellState.False),
-
-                new Hint("Clue #3: If Jeremy is 2 steps greater than purple, then Jeremy cannot equal 75 riders. Otherwise, purple would have to be smaller than the smallest item in the set (50 riders). Mark the highlighted cell as FALSE.",
-                        new CellLocation(new Position(0, 0), new Position(1, 1)), CellState.False),
-
-                new Hint("100 riders must equal Jeremy, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(0, 0), new Position(1, 2)), CellState.True),
-
-                new Hint("Clue #3: If Jeremy is 2 steps greater than purple, and Jeremy is equal to 100 riders, then purple must be 2 steps less than Jeremy, and purple must equal 50 riders. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(1, 0), new Position(2, 0)), CellState.True),
-
-                new Hint("Clue #2: If Eduardo is less than blue by some specific amount, then Eduardo does not equal blue. Mark the highlighted cell as FALSE.",
-                        new CellLocation(new Position(0, 1), new Position(0, 0)), CellState.False),
-
-                new Hint("Clue #2: If blue is 2 steps greater than Eduardo, then blue cannot equal 75 riders. Otherwise, Eduardo would have to be smaller than the smallest item in the set (50 riders). Mark the highlighted cell as FALSE.",
-                        new CellLocation(new Position(1, 0), new Position(0, 1)), CellState.False),
-
-                new Hint("Clue #4: If red is 2 steps greater than pink, then pink cannot equal 100 riders. Otherwise, red would have to be larger than the largest item in the set (125 riders). Mark the highlighted cell as FALSE.",
-                        new CellLocation(new Position(1, 0), new Position(1, 2)), CellState.False),
-
-                new Hint("Clue #4: If red is 2 steps greater than pink, then pink cannot equal 125 riders. Otherwise, red would have to be larger than the largest item in the set (125 riders). Mark the highlighted cell as FALSE.",
-                        new CellLocation(new Position(1, 0), new Position(1, 3)), CellState.False),
-
-                new Hint("75 riders must equal pink, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(1, 0), new Position(1, 1)), CellState.True),
-
-                new Hint("Clue #4: If red is 2 steps greater than pink, and pink is equal to 75 riders, then red must be 2 steps greater than 75 riders, and red must equal 125 riders. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(1, 0), new Position(3, 3)), CellState.True),
-
-                new Hint("100 riders must equal blue, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(1, 0), new Position(0, 2)), CellState.True),
-
-                new Hint("Clue #2: If blue is 2 steps greater than Eduardo, and blue is equal to 100 riders, then Eduardo must be 2 steps less than blue, and Eduardo must equal 50 riders. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(0, 0), new Position(0, 0)), CellState.True),
-
-                new Hint("75 riders must equal Kurt, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(0, 0), new Position(2, 1)), CellState.True),
-
-                new Hint("50 riders is equal to Eduardo, and 50 riders is equal to purple, therefore Eduardo is equal to purple. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(0, 1), new Position(0, 2)), CellState.True),
-
-                new Hint("75 riders is equal to Kurt, and 75 riders is equal to pink, therefore Kurt is equal to pink. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(0, 1), new Position(2, 1)), CellState.True),
-
-                new Hint("100 riders is equal to Jeremy, and 100 riders is equal to blue, therefore Jeremy is equal to blue. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(0, 1), new Position(1, 0)), CellState.True),
-
-                new Hint("Red must equal Marc, since all other possibilities have been eliminated. Mark the highlighted cell as TRUE.",
-                        new CellLocation(new Position(0, 1), new Position(3, 3)), CellState.True)
-        );
-
-        List<CellLocation> answerKey = List.of(
-                new CellLocation(new Position(0, 0), new Position(3, 3)),
-                new CellLocation(new Position(0, 0), new Position(1, 2)),
-                new CellLocation(new Position(1, 0), new Position(2, 0)),
-                new CellLocation(new Position(1, 0), new Position(1, 1)),
-                new CellLocation(new Position(1, 0), new Position(3, 3)),
-                new CellLocation(new Position(1, 0), new Position(0, 2)),
-                new CellLocation(new Position(0, 0), new Position(0, 0)),
-                new CellLocation(new Position(0, 0), new Position(2, 1)),
-                new CellLocation(new Position(0, 1), new Position(0, 2)),
-                new CellLocation(new Position(0, 1), new Position(2, 1)),
-                new CellLocation(new Position(0, 1), new Position(1, 0)),
-                new CellLocation(new Position(0, 1), new Position(3, 3))
-        );
-
-        return new PuzzleDefinition(categories, clues, hints, answerKey);
     }
 }
