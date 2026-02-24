@@ -6,8 +6,7 @@ public class PuzzleValidator {
   public PuzzleValidator(PuzzleDefinition sourcePuzzleDefinition) {
     this.puzzleDefinition = sourcePuzzleDefinition;
   }
-  public boolean isMoveValid(Grid grid, Cell target, CellState newState) {
-    // REVIEW NOTE: assumes `newState` == CellState.True
+  public boolean isMoveValid(Grid grid, Cell target) {
     // check if there is a Cell with CellState.True in row
     for (int i = 0; i < grid.getNumColumns(); i++)
       if (grid.getCell(new Position(target.getPosition().row(), i))
