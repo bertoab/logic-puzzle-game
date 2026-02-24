@@ -26,7 +26,7 @@ public class PuzzleGame {
                 .getCell(currentHint.getLocation().gridPosition());
 
         // If this hint is solved, move the index forward and return the next hint
-        if (cell.getState() == CellState.True) {
+        if (cell.getState() == currentHint.getState()) {
             nextHintIndex++;
             if (nextHintIndex >= hints.size()) return null;
             return hints.get(nextHintIndex);
