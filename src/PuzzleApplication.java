@@ -11,8 +11,6 @@ import java.io.IOException;
 * @author Roberto Baez
 */
 public class PuzzleApplication extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
     /**
     * Sets the Stage to a Scene with two menu options.
     * @param stage the primary Stage for the application
