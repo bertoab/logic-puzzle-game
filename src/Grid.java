@@ -1,3 +1,10 @@
+/** Written by: Roberto Baez
+ * Grid is the class that represents a single game grid.
+ * It holds a two-dimensional array of Cells and supports
+ * various lengths and widths.
+ *
+ * @author Roberto Baez
+ */
 public class Grid {
   // default rows and columns based on 3x4 logic puzzle
   private static final int DEFAULT_NUM_COLUMNS = 4;
@@ -13,12 +20,26 @@ public class Grid {
       for (int k = 0; k < numColumns; k++)
         this.cells[i][k] = new Cell(new Position(i, k));
   }
+  /**
+   * Returns the Cell object located at pos within
+   * this grid's cells attribute.
+   * @param pos   the Position object of the cell to be located
+   * @return      the Cell located at pos
+   */
   public Cell getCell(Position pos) {
     return cells[pos.row()][pos.col()];
   }
+  /**
+   * Returns the number of rows in this grid.
+   * @return the number of rows in this grid
+   */
   public int getNumRows() {
     return this.cells.length;
   }
+  /**
+   * Returns the number of columns in this grid.
+   * @return the number of columns in this grid
+   */
   public int getNumColumns() {
   /*
     all inner arrays are guaranteed to be the same length.
@@ -26,6 +47,10 @@ public class Grid {
   */
     return this.cells[0].length; 
   }
+  /**
+   * Returns a string representation of this object.
+   * @return a String object representing this object
+   */
   @Override
   public String toString() {
     // count number of Cells that have each CellState value
@@ -46,6 +71,12 @@ public class Grid {
     String blankStr = String.format("%d \"Blank\" Cells", numBlank);
     return String.format("Grid with %s, %s, and %s\n", trueStr, falseStr, blankStr);
   }
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   * @param obj    the reference object with which to compare
+   * @return       true if this object is the same as the obj argument;
+   *               false otherwise.
+   */
   @Override
   public boolean equals(Object obj) {
     if (!(obj instanceof Grid)) return false; // `obj` not same class
