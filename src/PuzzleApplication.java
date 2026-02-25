@@ -53,7 +53,7 @@ public class PuzzleApplication extends Application {
         catch (IOException e) {
             throw new RuntimeException("Unable to parse fxml file");
         }
-        fxmlLoader.<HelloController>getController().setApp(this);
+        fxmlLoader.<GameController>getController().setApp(this);
         primaryStage.setTitle("Game");
         primaryStage.setScene(scene);
         primaryStage.show();

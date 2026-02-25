@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HelloController {
+public class GameController {
 
     @FXML private TextArea hintArea;
     @FXML private GridPane grid00;
