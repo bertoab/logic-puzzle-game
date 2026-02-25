@@ -106,6 +106,11 @@ public class HelloController {
         hintArea.setText("Cleared " + errors.size() + " error(s).");
     }
 
+    @FXML
+    private void onStartOverClicked() {
+        app.showGameScene();
+    }
+
     private void checkPuzzleWon() {
         if (puzzleGame.getPuzzleValidator().isSolved(puzzleGame.getBoard())) {
             String winnerMessage = String.format("Congratulations, you solved the puzzle!\nHints Used: %d\n", puzzleGame.getHintCount());

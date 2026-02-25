@@ -155,7 +155,7 @@
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onHintClicked" text="Hint" GridPane.halignment="CENTER" />
                                 <Button mnemonicParsing="false" onAction="#onClearErrorsClicked" text="Clear Errors" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                                <Button mnemonicParsing="false" text="Start Over" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                                <Button mnemonicParsing="false" onAction="#onStartOverClicked" text="Start Over" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
                             </children>
                         </GridPane>
                         <TextArea fx:id="hintArea" editable="false" prefHeight="80.0" prefWidth="1060.0" promptText="Hint will appear here..." wrapText="true">
