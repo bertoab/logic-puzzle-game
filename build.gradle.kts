@@ -25,7 +25,7 @@ tasks.withType<JavaCompile> {
 }
 
 application {
-    mainClass.set("HelloApplication")
+    mainClass.set("PuzzleApplication")
 }
 
 javafx {

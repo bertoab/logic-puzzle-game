@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
  */
 public class MenuController {
 
-    private HelloApplication app;
+    private PuzzleApplication app;
 
     @FXML
     private Label statusLabel;
@@ -26,7 +26,7 @@ public class MenuController {
      *
      * @param app application instance that owns the stage
      */
-    public void setApp(HelloApplication app) {
+    public void setApp(PuzzleApplication app) {
         this.app = app;
     }
 
@@ -35,14 +35,7 @@ public class MenuController {
      */
     @FXML
     private void handleStartPuzzle() {
-        if (app == null) {
-            setStatus("Menu is not connected to the application.");
-            return;
-        }
-
-        // TODO: when GameApplication gets a startNewGame() method,
-        // call it here (and optionally catch errors to show in statusLabel).
-        setStatus("Start clicked. Next step: wire this to app.startNewGame().");
+        app.showGameScene();
     }
 
     /**
@@ -54,7 +47,7 @@ public class MenuController {
     }
 
     // Status label is optional in FXML, so guard against null.
-    private void setStatus(String message) {
+    public void setStatus(String message) {
         if (statusLabel != null) {
             statusLabel.setText(message);
         }
