@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HelloController {
@@ -18,6 +19,7 @@ public class HelloController {
     @FXML private GridPane grid10;
 
     private PuzzleGame puzzleGame;
+    private List<Rectangle> highlightedCells;
 
     @FXML
     public void initialize() {
@@ -25,6 +27,8 @@ public class HelloController {
         PuzzleDefinition definition = loader.loadDefinition("Puzzle-1.txt");
         Board board = new Board(definition.getCategoryCount());
         puzzleGame = new PuzzleGame(definition, board);
+
+        highlightedCells = new ArrayList<Rectangle>();
 
         // Fill each grid with clickable cells
         setupGrid(grid00, new Position(0, 0));
@@ -63,6 +67,7 @@ public class HelloController {
     // Called every time a cell is clicked.
     // Updates the Cell in the game data, then refreshes the label to match.
     private void onCellClicked(Cell cell, Label stateLabel) {
+        clearHighlightedCells();
         CellState nextState = nextState(cell.getState());
         cell.setState(nextState);
 
@@ -94,17 +99,26 @@ public class HelloController {
         hintArea.setText("Cleared " + errors.size() + " error(s).");
     }
 
+    private void clearHighlightedCells() {
+        for (Rectangle rectangle : highlightedCells)
+            rectangle.setFill(Color.WHITE);
+        highlightedCells.clear();
+    }
+
     private void highlightCellPane(CellLocation location, Color color) {
         ObservableList<Node> children = getCellPane(location).getChildren();
         for (Node child : children)
-            if (child instanceof Rectangle)
+            if (child instanceof Rectangle) {
+                highlightedCells.add((Rectangle) child);
                 ((Rectangle) child).setFill(color);
+            }
     }
 
     private void clearErrorCellPane(CellLocation location) {
         ObservableList<Node> children = getCellPane(location).getChildren();
         for (Node child : children) {
             if (child instanceof Rectangle) {
+                highlightedCells.add((Rectangle) child);
                 ((Rectangle) child).setFill(Color.RED);
             } if (child instanceof Label) {
                 ((Label) child).setText("");
