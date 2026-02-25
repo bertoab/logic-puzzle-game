@@ -50,7 +50,7 @@ public class HelloController {
     private StackPane makeCellPane(Cell cell) {
         Rectangle background = new Rectangle(50, 50);
         background.setFill(Color.WHITE);
-        background.setOpacity(0.01); // nearly invisible so the grid lines show through
+        background.setOpacity(0.3); // nearly invisible so the grid lines show through
 
         Label stateLabel = new Label("");
 
