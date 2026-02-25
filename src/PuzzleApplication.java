@@ -45,7 +45,7 @@ public class PuzzleApplication extends Application {
     }
 
     public void showGameScene() {
-        FXMLLoader fxmlLoader = new FXMLLoader(PuzzleApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(PuzzleApplication.class.getResource("game-view.fxml"));
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load());

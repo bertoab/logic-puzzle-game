@@ -38,6 +38,10 @@ public class GameController {
         setupGrid(grid10, new Position(1, 0));
     }
 
+    public void setApp(PuzzleApplication app) {
+        this.app = app;
+    }
+
     // Adds a clickable cell pane for every cell in a given grid
     private void setupGrid(GridPane gridPane, Position boardPosition) {
         Grid grid = puzzleGame.getBoard().getGrid(boardPosition);
@@ -48,10 +52,6 @@ public class GameController {
                 gridPane.add(makeCellPane(cell), col, row);
             }
         }
-    }
-
-    public void setApp(PuzzleApplication app) {
-        this.app = app;
     }
 
     // Builds a clickable pane for a single cell.
