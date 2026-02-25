@@ -31,6 +31,28 @@ public class PuzzleValidator {
     }
     return true;
   }
+  public Board getSolvedBoard() {
+    Board board = new Board();
+    // set all Cells to CellState.False
+    List<Position> gridPositions = List.of(
+            new Position(0, 0),
+            new Position(0, 1),
+            new Position(1, 0)
+    );
+    for (Position boardPos : gridPositions) {
+      Grid grid = board.getGrid(boardPos);
+      for (int col = 0; col < grid.getNumColumns(); col++)
+        for (int row = 0; row < grid.getNumRows(); row++)
+          grid.getCell(new Position(row, col)).setState(CellState.False);
+    }
+
+
+    for (CellLocation answer : puzzleDefinition.getAnswerKeyTrueCells())
+      board.getGrid(answer.boardPosition())
+           .getCell(answer.gridPosition())
+           .setState(CellState.True);
+    return board;
+  }
   /* TODO
   @Override
   public String toString() {
