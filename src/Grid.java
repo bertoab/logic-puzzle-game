@@ -14,7 +14,7 @@ public class Grid {
         this.cells[i][k] = new Cell(new Position(i, k));
   }
   public Cell getCell(Position pos) {
-    return cells[pos.col()][pos.row()];
+    return cells[pos.row()][pos.col()];
   }
   public int getNumRows() {
     return this.cells.length;
