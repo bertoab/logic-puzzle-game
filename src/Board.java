@@ -1,3 +1,11 @@
+/** Written by: Roberto Baez
+ * Board is the class that represents a logic puzzle
+ * game board. It stores a two-dimensional array of
+ * Grids, and the number of categories. The number
+ * of categories defines the shape of its arrays of Grids.
+ *
+ * @author Roberto Baez
+ */
 public class Board {
   // default number of categories based on 3x4 logic puzzle
   private static final int DEFAULT_NUM_CATEGORIES = 3;
@@ -29,12 +37,27 @@ public class Board {
         this.grids[row][col] = new Grid();
     }
   }
+  /**
+   * Returns the number of categories for the puzzle
+   * represented by this board.
+   * @return the number of categories this board supports
+   */
   public int getNumCategories() {
     return this.numberOfCategories;
   }
+  /**
+   * Returns the Grid object located at gridPosition within
+   * this board's grids attribute.
+   * @param gridPosition  the Position object of the grid to be located
+   * @return              the Grid located at gridPosition
+   */
   public Grid getGrid(Position gridPosition) {
     return this.grids[gridPosition.row()][gridPosition.col()];
   }
+  /**
+   * Returns a string representation of this object.
+   * @return a String object representing this object
+   */
   @Override
   public String toString() {
     // count number of Grids
@@ -43,6 +66,12 @@ public class Board {
       numGrids += this.grids[row].length;
     return String.format("Board with %d Grids\n", numGrids);
   }
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   * @param obj    the reference object with which to compare
+   * @return       true if this object is the same as the obj argument;
+   *               false otherwise.
+   */
   @Override
   public boolean equals(Object obj) {
     if (!(obj instanceof Board)) return false; // `obj` not same class
