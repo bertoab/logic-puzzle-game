@@ -18,11 +18,13 @@ public class HelloController {
     @FXML private GridPane grid01;
     @FXML private GridPane grid10;
 
+    private PuzzleApplication app;
     private PuzzleGame puzzleGame;
     private List<Rectangle> highlightedCells;
 
     @FXML
     public void initialize() {
+        this.app = null;
         PuzzleLoader loader = new PuzzleLoader();
         PuzzleDefinition definition = loader.loadDefinition("Puzzle-1.txt");
         Board board = new Board(definition.getCategoryCount());
@@ -46,6 +48,10 @@ public class HelloController {
                 gridPane.add(makeCellPane(cell), col, row);
             }
         }
+    }
+
+    public void setApp(PuzzleApplication app) {
+        this.app = app;
     }
 
     // Builds a clickable pane for a single cell.
@@ -73,6 +79,7 @@ public class HelloController {
 
         stateLabel.setText(labelForState(nextState));
         stateLabel.setTextFill(colorForState(nextState));
+        checkPuzzleWon();
     }
 
     @FXML
@@ -97,6 +104,13 @@ public class HelloController {
         for (CellLocation location : errors)
             clearErrorCellPane(location);
         hintArea.setText("Cleared " + errors.size() + " error(s).");
+    }
+
+    private void checkPuzzleWon() {
+        if (puzzleGame.getPuzzleValidator().isSolved(puzzleGame.getBoard())) {
+            String winnerMessage = String.format("Congratulations, you solved the puzzle!\nHints Used: %d\n", puzzleGame.getHintCount());
+            app.showMenuScene(winnerMessage);
+        }
     }
 
     private void clearHighlightedCells() {

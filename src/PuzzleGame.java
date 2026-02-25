@@ -70,8 +70,8 @@ public class PuzzleGame {
         return errors;
     }
 
-    public int getErrorCount() {
-        return this.errorCount;
+    public int getHintCount() {
+        return this.nextHintIndex;
     }
 
     public PuzzleDefinition getPuzzleDefinition() {

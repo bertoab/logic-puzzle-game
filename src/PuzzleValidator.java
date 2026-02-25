@@ -6,7 +6,7 @@ public class PuzzleValidator {
   public PuzzleValidator(PuzzleDefinition sourcePuzzleDefinition) {
     this.puzzleDefinition = sourcePuzzleDefinition;
   }
-  public boolean isMoveValid(Grid grid, Cell target) {
+  private boolean isMoveValid(Grid grid, Cell target) {
     // check if there is a Cell with CellState.True in row
     for (int i = 0; i < grid.getNumColumns(); i++)
       if (grid.getCell(new Position(target.getPosition().row(), i))
@@ -24,9 +24,9 @@ public class PuzzleValidator {
     for (CellLocation answer : answers) {
       // assumes the Grid specificed by `answer.boardPosition()` exists
       // ensure the Cell within `board` specified by `answer` is "true"
-      if (board.getGrid(answer.boardPosition())
-          .getCell(answer.gridPosition())
-          .getState() != CellState.True)
+      Grid grid = board.getGrid(answer.boardPosition());
+      Cell cell = grid.getCell(answer.gridPosition());
+      if (cell.getState() != CellState.True && isMoveValid(grid, cell))
         return false;
     }
     return true;
