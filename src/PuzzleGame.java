@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class PuzzleGame {
@@ -35,8 +36,9 @@ public class PuzzleGame {
         return currentHint;
     }
 
-    public int clearErrors() {
-        int cleared = this.errorCount;
+    public List<CellLocation> clearErrors() {
+        List<CellLocation> errors = new ArrayList<CellLocation>();
+        Board solvedBoard = puzzleValidator.getSolvedBoard();
 
         // The grids we have on the board
         List<Position> gridPositions = List.of(
@@ -51,16 +53,21 @@ public class PuzzleGame {
             for (int row = 0; row < grid.getNumRows(); row++) {
                 for (int col = 0; col < grid.getNumColumns(); col++) {
                     Cell cell = grid.getCell(new Position(row, col));
-
-                    if (cell.getState() == CellState.False) {
+                    CellState state = cell.getState();
+                    CellState solvedState = solvedBoard.getGrid(boardPos)
+                                                       .getCell(cell.getPosition())
+                                                       .getState();
+                    if (state != CellState.Blank
+                        && state != solvedState) {
                         cell.setState(CellState.Blank);
+                        errors.add(new CellLocation(boardPos, cell.getPosition()));
                     }
                 }
             }
         }
 
         this.errorCount = 0;
-        return cleared;
+        return errors;
     }
 
     public int getErrorCount() {
