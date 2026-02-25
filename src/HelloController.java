@@ -1,7 +1,9 @@
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
@@ -78,15 +80,60 @@ public class HelloController {
             hintArea.setText("No more hints available.");
             return;
         }
+        highlightCellPane(hint.getLocation(), Color.YELLOW);
 
         hintArea.setText(hint.getText());
     }
 
     @FXML
     private void onClearErrorsClicked() {
-        // TODO visually highlight and remove error cells once PuzzleValidator exists
-        int clearedCount = puzzleGame.clearErrors();
-        hintArea.setText("Cleared " + clearedCount + " error(s).");
+        // get List of all erroneous CellLocations
+        List<CellLocation> errors = puzzleGame.clearErrors();
+        for (CellLocation location : errors)
+            clearErrorCellPane(location);
+        hintArea.setText("Cleared " + errors.size() + " error(s).");
+    }
+
+    private void highlightCellPane(CellLocation location, Color color) {
+        ObservableList<Node> children = getCellPane(location).getChildren();
+        for (Node child : children)
+            if (child instanceof Rectangle)
+                ((Rectangle) child).setFill(color);
+    }
+
+    private void clearErrorCellPane(CellLocation location) {
+        ObservableList<Node> children = getCellPane(location).getChildren();
+        for (Node child : children) {
+            if (child instanceof Rectangle) {
+                ((Rectangle) child).setFill(Color.RED);
+            } if (child instanceof Label) {
+                ((Label) child).setText("");
+            }
+        }
+    }
+
+    private StackPane getCellPane(CellLocation location) {
+        GridPane targetPane = null;
+        Position boardPosition = location.boardPosition();
+        if (new Position(0, 0).equals(boardPosition))
+            targetPane = grid00;
+        else if (new Position(0, 1).equals(boardPosition))
+            targetPane = grid01;
+        else if (new Position(1, 0).equals(boardPosition))
+            targetPane = grid10;
+        for (Node child : targetPane.getChildren()) {
+            Integer childCol = GridPane.getColumnIndex(child);
+            Integer childRow = GridPane.getRowIndex(child);
+            if (childCol == null || childRow == null)
+                continue;
+            int targetCol = location.gridPosition().col();
+            int targetRow = location.gridPosition().row();
+            if (childCol == targetCol
+                && childRow == targetRow
+                && child instanceof StackPane)
+                return (StackPane) child;
+        }
+        return null;
     }
 
     // Blank -> False -> True -> Blank
