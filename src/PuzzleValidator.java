@@ -22,7 +22,7 @@ public class PuzzleValidator {
   public PuzzleValidator(PuzzleDefinition sourcePuzzleDefinition) {
     this.puzzleDefinition = sourcePuzzleDefinition;
   }
-  private boolean isMoveValid(Grid grid, Cell target) {
+  public boolean isMoveValid(Grid grid, Cell target) {
     // check if there is a Cell with CellState.True in row
     for (int i = 0; i < grid.getNumColumns(); i++)
       if (grid.getCell(new Position(target.getPosition().row(), i))

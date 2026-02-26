@@ -30,6 +30,7 @@ public class GameController {
     @FXML
     public void initialize() {
         this.app = null;
+
         PuzzleLoader loader = new PuzzleLoader();
         PuzzleDefinition definition = loader.loadDefinition("Puzzle-1.txt");
         Board board = new Board(definition.getCategoryCount());
@@ -55,7 +56,7 @@ public class GameController {
         for (int row = 0; row < grid.getNumRows(); row++) {
             for (int col = 0; col < grid.getNumColumns(); col++) {
                 Cell cell = grid.getCell(new Position(row, col));
-                gridPane.add(makeCellPane(cell), col, row);
+                gridPane.add(makeCellPane(cell, grid), col, row);
             }
         }
     }
@@ -74,9 +75,10 @@ public class GameController {
      * Clicking cycles the state: Blank -> False -> True -> Blank.
      *
      * @param cell the game cell this pane represents
+     * @param grid the grid that contains the game cell represented by this pane
      * @return a StackPane ready to be added to a GridPane
      */
-    private StackPane makeCellPane(Cell cell) {
+    private StackPane makeCellPane(Cell cell, Grid grid) {
         Rectangle background = new Rectangle(50, 50);
         background.setFill(Color.WHITE);
         background.setOpacity(0.3); // nearly invisible so the grid lines show through
@@ -84,24 +86,37 @@ public class GameController {
         Label stateLabel = new Label("");
 
         StackPane pane = new StackPane(background, stateLabel);
-        pane.setOnMouseClicked(e -> onCellClicked(cell, stateLabel));
+        pane.setOnMouseClicked(e -> onCellClicked(cell, grid, stateLabel));
 
         return pane;
     }
 
     /**
-     * Advances the cell state, updates its label, and checks if the puzzle is solved.
+     * Clears highlighted cells, validates and updates the clicked cell's state,
+     * and checks if the puzzle is solved.
      *
      * @param cell the cell that was clicked
+     * @param grid the Grid object containing the game cell that was clicked
      * @param stateLabel the label inside the cell pane
      */
-    private void onCellClicked(Cell cell, Label stateLabel) {
+    private void onCellClicked(Cell cell, Grid grid, Label stateLabel) {
         clearHighlightedCells();
+
+        // ensure the next state is a valid move
+        if (cell.getState() == CellState.False
+            && !puzzleGame.getPuzzleValidator().isMoveValid(grid, cell)) {
+            hintArea.setText("Cannot set a checkmark there. \nYou may only have one checkmark in each row and each column.");
+            return;
+        }
+
+        // advance the state
         CellState nextState = nextState(cell.getState());
         cell.setState(nextState);
 
+        // update label
         stateLabel.setText(labelForState(nextState));
         stateLabel.setTextFill(colorForState(nextState));
+
         checkPuzzleWon();
     }
 
