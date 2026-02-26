@@ -1,5 +1,3 @@
-// Cesar Pimentel & Roberto Baez
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -29,10 +27,6 @@ public class GameController {
     private PuzzleGame puzzleGame;
     private List<Rectangle> highlightedCells;
 
-    /**
-     * Called by JavaFX when the scene loads.
-     * Loads the puzzle from file, creates the game, and fills the grid panes.
-     */
     @FXML
     public void initialize() {
         this.app = null;
@@ -132,6 +126,7 @@ public class GameController {
      */
     @FXML
     private void onClearErrorsClicked() {
+        // get List of all erroneous CellLocations
         List<CellLocation> errors = puzzleGame.clearErrors();
         for (CellLocation location : errors)
             clearErrorCellPane(location);
