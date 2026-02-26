@@ -1,8 +1,24 @@
+// Written by: Roberto Baez
 import java.util.List;
 
+/**
+ * PuzzleValidator is the class that is used to validate
+ * a Board's current or potential state, according to a
+ * PuzzleDefinition and the rules of the logic puzzle game.
+ * It uses the PuzzleDefinition to determine whether a
+ * Board is solved. A PuzzleValidator is also used to
+ * indicate whether a potential move would invalidate any
+ * of a Board's cells.
+ *
+ * @author Roberto Baez
+ */
 public class PuzzleValidator {
   private final PuzzleDefinition puzzleDefinition;
-  // TODO explain lack of no-argument constructor
+  /*
+   * NOTE: this class does not have a no-argument constructor
+   * because it has a dependency (aggregaton?) relationship
+   * on a PuzzleDefinition object.
+   */
   public PuzzleValidator(PuzzleDefinition sourcePuzzleDefinition) {
     this.puzzleDefinition = sourcePuzzleDefinition;
   }
@@ -19,6 +35,14 @@ public class PuzzleValidator {
         return false;
     return true;
   }
+  /**
+   * Indicates whether board is in a solved state. A solved state
+   * means that all answers are correctly set on this board,
+   * and that all cells are valid.
+   * @param board the board to indicate the solved state of
+   * @see #isMoveValid(Grid, Cell)
+   * @return true if board is in a solved state; false otherwise
+   */
   public boolean isSolved(Board board) {
     List<CellLocation> answers = this.puzzleDefinition.getAnswerKeyTrueCells();
     for (CellLocation answer : answers) {
@@ -31,6 +55,10 @@ public class PuzzleValidator {
     }
     return true;
   }
+  /**
+   * Returns a solved board for this validator's puzzleDefinition.
+   * @return a Board object that is in a solved state with no blank cells
+   */
   public Board getSolvedBoard() {
     Board board = new Board();
     // set all Cells to CellState.False
@@ -45,8 +73,7 @@ public class PuzzleValidator {
         for (int row = 0; row < grid.getNumRows(); row++)
           grid.getCell(new Position(row, col)).setState(CellState.False);
     }
-
-
+    // set answer cells to CellState.True
     for (CellLocation answer : puzzleDefinition.getAnswerKeyTrueCells())
       board.getGrid(answer.boardPosition())
            .getCell(answer.gridPosition())
