@@ -48,6 +48,15 @@ public class GameController {
     }
 
     /**
+     * Sets up the app so this controller can trigger scene changes.
+     *
+     * @param app the running application instance
+     */
+    public void setApp(PuzzleApplication app) {
+        this.app = app;
+    }
+
+    /**
      * Populates a GridPane with one clickable pane per cell.
      *
      * @param gridPane the UI grid to fill
@@ -62,15 +71,6 @@ public class GameController {
                 gridPane.add(makeCellPane(cell, grid), col, row);
             }
         }
-    }
-
-    /**
-     * Sets up the app so this controller can trigger scene changes.
-     *
-     * @param app the running application instance
-     */
-    public void setApp(PuzzleApplication app) {
-        this.app = app;
     }
 
     /**
