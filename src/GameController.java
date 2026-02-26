@@ -1,3 +1,5 @@
+// Cesar Pimentel & Roberto Baez
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -11,8 +13,13 @@ import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HelloController {
-
+/**
+ * Controller for the puzzle game screen.
+ * Connects the JavaFX UI to the game logic.
+ *
+ * @author Cesar Pimentel & Roberto Baez
+ */
+public class GameController {
     @FXML private TextArea hintArea;
     @FXML private GridPane grid00;
     @FXML private GridPane grid01;
@@ -22,6 +29,10 @@ public class HelloController {
     private PuzzleGame puzzleGame;
     private List<Rectangle> highlightedCells;
 
+    /**
+     * Called by JavaFX when the scene loads.
+     * Loads the puzzle from file, creates the game, and fills the grid panes.
+     */
     @FXML
     public void initialize() {
         this.app = null;
@@ -38,7 +49,12 @@ public class HelloController {
         setupGrid(grid10, new Position(1, 0));
     }
 
-    // Adds a clickable cell pane for every cell in a given grid
+    /**
+     * Populates a GridPane with one clickable pane per cell.
+     *
+     * @param gridPane the UI grid to fill
+     * @param boardPosition identifies which board grid to use
+     */
     private void setupGrid(GridPane gridPane, Position boardPosition) {
         Grid grid = puzzleGame.getBoard().getGrid(boardPosition);
 
@@ -50,13 +66,22 @@ public class HelloController {
         }
     }
 
+    /**
+     * Sets up the app so this controller can trigger scene changes.
+     *
+     * @param app the running application instance
+     */
     public void setApp(PuzzleApplication app) {
         this.app = app;
     }
 
-    // Builds a clickable pane for a single cell.
-    // The rectangle gives the cell a physical size so clicks register.
-    // The label sits on top to show either a checkmark or x
+    /**
+     * Builds a clickable pane for a single cell.
+     * Clicking cycles the state: Blank -> False -> True -> Blank.
+     *
+     * @param cell the game cell this pane represents
+     * @return a StackPane ready to be added to a GridPane
+     */
     private StackPane makeCellPane(Cell cell) {
         Rectangle background = new Rectangle(50, 50);
         background.setFill(Color.WHITE);
@@ -70,8 +95,12 @@ public class HelloController {
         return pane;
     }
 
-    // Called every time a cell is clicked.
-    // Updates the Cell in the game data, then refreshes the label to match.
+    /**
+     * Advances the cell state, updates its label, and checks if the puzzle is solved.
+     *
+     * @param cell the cell that was clicked
+     * @param stateLabel the label inside the cell pane
+     */
     private void onCellClicked(Cell cell, Label stateLabel) {
         clearHighlightedCells();
         CellState nextState = nextState(cell.getState());
@@ -82,12 +111,13 @@ public class HelloController {
         checkPuzzleWon();
     }
 
+    /**
+     * Gets the next hint, highlights its cell yellow, and shows the hint text.
+     */
     @FXML
     private void onHintClicked() {
         Hint hint = puzzleGame.getNextHint();
 
-        // TODO most likely remove this since it should always show a hint
-        // if no hints are available it most likely means you won
         if (hint == null) {
             hintArea.setText("No more hints available.");
             return;
@@ -97,15 +127,28 @@ public class HelloController {
         hintArea.setText(hint.getText());
     }
 
+    /**
+     * Clears all incorrect cells and highlights them red.
+     */
     @FXML
     private void onClearErrorsClicked() {
-        // get List of all erroneous CellLocations
         List<CellLocation> errors = puzzleGame.clearErrors();
         for (CellLocation location : errors)
             clearErrorCellPane(location);
         hintArea.setText("Cleared " + errors.size() + " error(s).");
     }
 
+    /**
+     * Resets the game by reloading the game scene from scratch.
+     */
+    @FXML
+    private void onStartOverClicked() {
+        app.showGameScene();
+    }
+
+    /**
+     * Checks if the puzzle is solved and switches to the menu scene if so.
+     */
     private void checkPuzzleWon() {
         if (puzzleGame.getPuzzleValidator().isSolved(puzzleGame.getBoard())) {
             String winnerMessage = String.format("Congratulations, you solved the puzzle!\nHints Used: %d\n", puzzleGame.getHintCount());
@@ -113,12 +156,21 @@ public class HelloController {
         }
     }
 
+    /**
+     * Removes the highlight color from all previously highlighted cells.
+     */
     private void clearHighlightedCells() {
         for (Rectangle rectangle : highlightedCells)
             rectangle.setFill(Color.WHITE);
         highlightedCells.clear();
     }
 
+    /**
+     * Highlights the cell at the given location with the specified color.
+     *
+     * @param location the cell to highlight
+     * @param color the color to apply
+     */
     private void highlightCellPane(CellLocation location, Color color) {
         ObservableList<Node> children = getCellPane(location).getChildren();
         for (Node child : children)
@@ -128,6 +180,11 @@ public class HelloController {
             }
     }
 
+    /**
+     * Marks a cell red and clears its label to indicate it was an error.
+     *
+     * @param location the location of the erroneous cell
+     */
     private void clearErrorCellPane(CellLocation location) {
         ObservableList<Node> children = getCellPane(location).getChildren();
         for (Node child : children) {
@@ -140,6 +197,12 @@ public class HelloController {
         }
     }
 
+    /**
+     * Returns the StackPane in the UI matching the given cell location, or null if not found.
+     *
+     * @param location the cell location to look up
+     * @return the matching StackPane
+     */
     private StackPane getCellPane(CellLocation location) {
         GridPane targetPane = null;
         Position boardPosition = location.boardPosition();
@@ -157,14 +220,19 @@ public class HelloController {
             int targetCol = location.gridPosition().col();
             int targetRow = location.gridPosition().row();
             if (childCol == targetCol
-                && childRow == targetRow
-                && child instanceof StackPane)
+                    && childRow == targetRow
+                    && child instanceof StackPane)
                 return (StackPane) child;
         }
         return null;
     }
 
-    // Blank -> False -> True -> Blank
+    /**
+     * Returns the next state in the click cycle: Blank -> False -> True -> Blank.
+     *
+     * @param current the current cell state
+     * @return the next CellState
+     */
     private CellState nextState(CellState current) {
         return switch (current) {
             case Blank -> CellState.False;
@@ -173,6 +241,12 @@ public class HelloController {
         };
     }
 
+    /**
+     * Returns the display text for a given cell state.
+     *
+     * @param state the cell state
+     * @return "✓" for True, "✗" for False, "" for Blank
+     */
     private String labelForState(CellState state) {
         return switch (state) {
             case True  -> "✓";
@@ -181,6 +255,12 @@ public class HelloController {
         };
     }
 
+    /**
+     * Returns the display color for a given cell state.
+     *
+     * @param state the cell state
+     * @return green for True, red for False, black for Blank
+     */
     private Color colorForState(CellState state) {
         return switch (state) {
             case True  -> Color.GREEN;
