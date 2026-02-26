@@ -27,6 +27,9 @@ public class GameController {
     private PuzzleGame puzzleGame;
     private List<Rectangle> highlightedCells;
 
+    /**
+     * Initializes this controller's attributes and populates the grids with cells.
+     */
     @FXML
     public void initialize() {
         this.app = null;
