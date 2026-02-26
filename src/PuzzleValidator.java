@@ -16,12 +16,26 @@ public class PuzzleValidator {
   private final PuzzleDefinition puzzleDefinition;
   /*
    * NOTE: this class does not have a no-argument constructor
-   * because it has a dependency (aggregaton?) relationship
-   * on a PuzzleDefinition object.
+   * because it has a hard dependency on a PuzzleDefinition object.
+   */
+  /**
+   * Constructs a PuzzleValidator for sourcePuzzleDefinition.
+   * @param sourcePuzzleDefinition   the PuzzleDefinition object
+   *                                 containing the solution to
+   *                                 the puzzle
    */
   public PuzzleValidator(PuzzleDefinition sourcePuzzleDefinition) {
     this.puzzleDefinition = sourcePuzzleDefinition;
   }
+  /**
+   * Indicates whether a change in state for target
+   * will be valid, in the context of its grid.
+   * A move is invalid when another cell in the same
+   * row or column already has its state set to
+   * CellState.True.
+   * @param grid     the Grid object containing target
+   * @param target   the Cell object being validated
+   */
   public boolean isMoveValid(Grid grid, Cell target) {
     // check if there is a Cell with CellState.True in row
     for (int i = 0; i < grid.getNumColumns(); i++)

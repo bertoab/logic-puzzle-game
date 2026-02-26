@@ -11,9 +11,16 @@ public class Board {
   private static final int DEFAULT_NUM_CATEGORIES = 3;
   private final int numberOfCategories;
   private Grid[][] grids;
+  /**
+   * Constructs a Board with the default number of categories.
+   */
   public Board() {
     this(DEFAULT_NUM_CATEGORIES);
   }
+  /**
+   * Constructs a Board with numCategories categories.
+   * @param numCategories the number of categories in the puzzle game
+   */
   public Board(int numCategories) {
     this.numberOfCategories = numCategories;
     // calculate number of grids

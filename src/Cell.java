@@ -8,6 +8,10 @@
 public class Cell {
   private CellState state;
   private Position position;
+  /**
+   * Constructs a Cell with "blank" state, located at position.
+   * @param position the immutable location of this Cell
+   */
   public Cell(Position position) {
     this.position = position;
     this.state = CellState.Blank;

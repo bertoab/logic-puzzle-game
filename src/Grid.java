@@ -10,9 +10,18 @@ public class Grid {
   private static final int DEFAULT_NUM_COLUMNS = 4;
   private static final int DEFAULT_NUM_ROWS = 4;
   private Cell[][] cells;
+  /**
+   * Constructs a Grid with the default number of rows and columns.
+   */
   public Grid() {
     this(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLUMNS);
   }
+  /**
+   * Constructs a Grid with the specified number of rows
+   * and columns.
+   * @param numRows the number of rows for this Grid
+   * @param numColumns the number of columns for this Grid
+   */
   public Grid(int numRows, int numColumns) {
     this.cells = new Cell[numRows][numColumns];
     // initialize all Cell objects
